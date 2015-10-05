@@ -1,7 +1,7 @@
 <html>
 <head>
 
-<title>Groovy Goodness</title>
+<title>Ratpacked</title>
 
 <link href="styles/reset.css" rel="stylesheet" type="text/css" />
 <link href="styles/shCore.css" rel="stylesheet" type="text/css" />
@@ -12,8 +12,8 @@
 <body class="toc">
 
 <div class="titlewrapper">
-	<h1 class="title">Groovy Goodness</h1>
-	<h2 class="description">assert 'mrhaki' == ['Hubert','Alexander','Klein','Ikkink'].inject('mr') { c,n -&gt; c += n[0].toLowerCase() }</h2>
+	<h1 class="title">Ratpacked</h1>
+	<h2 class="description">assert 'mrhaki' == ['Hubert','Alexander','Klein','Ikkink'].inject('mr') { c,n -&gt; c = n[0].toLowerCase() }</h2>
 </div>
 
 <div class="toc">
