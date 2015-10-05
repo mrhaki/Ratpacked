@@ -1,0 +1,34 @@
+<html>
+<head>
+</head>
+<body>
+
+<h3 class="post-title">Groovy DSL Code Completion In IntelliJ IDEA</h3>
+
+<div class="post">
+<p>Ratpack applications can be written in Java and Groovy. The Java API is already very clean and on top is a Groovy DSL to work with Ratpack. When we use Groovy we can use the DSL, which allows for more clean code. The Ratpack developers have used the <a href="http://mrhaki.blogspot.com/2013/05/groovy-goodness-delegatesto-for-type.html"><code>@DelegateTo</code></a> annotation in the source code for the DSL definition. The annotation can be used to indicate which class or interface is used as delegate to execute the closure that is passed to the method. And this helps us a lot in the code editor of IntelliJ IDEA, because IDEA uses this information to give us code completion when we use the Groovy DSL in Ratpack. And that makes using the DSL very easy, because we rely on the IDE to give us the supported properties and methods and we make less mistakes.</p><p>Let's see this with an example in code. First we create a new <code>Ratpack.groovy</code> file:</p><pre class="brush:groovy;">// File: src/ratpack/Ratpack.groovy
+import static ratpack.groovy.Groovy.ratpack
+
+ratpack {
+    handlers {
+
+    }
+}
+</pre><p>We want to add a method in the closure that is passed to the <code>handlers</code> method. We first type <kdb>ge</kbd> and wait for the code completion to come up:</p><div class="separator" style="clear: both; text-align: center;"><a href="http://3.bp.blogspot.com/-0x9E6r81Xvw/VgxOoimDZcI/AAAAAAAALXM/4xHOd2DUhoU/s1600/Screen%2BShot%2B2015-09-30%2Bat%2B22.47.28.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="http://3.bp.blogspot.com/-0x9E6r81Xvw/VgxOoimDZcI/AAAAAAAALXM/4xHOd2DUhoU/s400/Screen%2BShot%2B2015-09-30%2Bat%2B22.47.28.png" /></a></div><p style="clear:both;">This is great! We get very informative information to complete our DSL. It is nice to see why this work in the source code of Ratpack for the <code>handlers</code> method:</p><pre class="brush:java;">...
+    /**
+     * Registers the closure used to build the handler chain of the application.
+     *
+     * @param configurer The configuration closure, delegating to {@link GroovyChain}
+     */
+    void handlers(@DelegatesTo(value = GroovyChain.class, strategy = Closure.DELEGATE_FIRST) Closure&lt;?&gt; configurer);
+
+...
+</pre><p>The <code>@DelegatesTo</code> annotation defines that the delegate of the closure code is the <code>GroovyChain</code> class. IntelliJ IDEA now knows that <code>GroovyChain</code> is used and gives us via the code completion the methods and properties of <code>GroovyChain</code>.</p><p>Written with Ratpack 1.0.0.</p
+</div>
+
+<p>
+    <a href="http://mrhaki.blogspot.com/2015/09/ratpacked-groovy-dsl-code-completion-in.html">Original blog post</a> written on September 30, 2015.
+</p>
+
+</body>
+</html>

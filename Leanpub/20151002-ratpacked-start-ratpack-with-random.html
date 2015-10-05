@@ -1,0 +1,26 @@
+<html>
+<head>
+</head>
+<body>
+
+<h3 class="post-title">Start Ratpack With a Random Port Number</h3>
+
+<div class="post">
+<p>To start our Ratpack application with a random port number we must use the value <code>0</code> as port number. The value <code>0</code> tells Ratpack to use a random port number (in a safe port range).</p><p>In the following example Ratpack application we configure the server port to be random:</p><pre class="brush:groovy">import static ratpack.groovy.Groovy.ratpack
+
+ratpack {
+    serverConfig {
+        // Tell Ratpack to use a 
+        // random port number.
+        port 0
+    }
+}
+</pre><p>Written with Ratpack 1.0.0.</p
+</div>
+
+<p>
+    <a href="http://mrhaki.blogspot.com/2015/10/ratpacked-start-ratpack-with-random.html">Original blog post</a> written on October 02, 2015.
+</p>
+
+</body>
+</html>

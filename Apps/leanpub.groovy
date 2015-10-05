@@ -1,10 +1,11 @@
 import groovy.xml.*
 import groovy.text.*
+import groovy.transform.*
 
 baseDir = '../Leanpub'
 
 def bloggerId = '6671019398434141469'
-def bloggerLabel = 'Ratpacked'
+@Field def bloggerLabel = 'Ratpacked'
 
 def baseURI = "https://www.blogger.com/feeds/$bloggerId/posts/default/-/$bloggerLabel"
 
