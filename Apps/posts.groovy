@@ -1,9 +1,10 @@
 import groovy.xml.*
+import groovy.transform.*
 
 baseDir = '../Blog/Posts'
 
 def bloggerId = '6671019398434141469'
-def bloggerLabel = 'Ratpacked'
+@Field def bloggerLabel = 'Ratpacked'
 
 def baseURI = "https://www.blogger.com/feeds/$bloggerId/posts/default/-/$bloggerLabel"
 

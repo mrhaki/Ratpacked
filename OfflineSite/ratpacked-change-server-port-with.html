@@ -1,0 +1,79 @@
+<html>
+<head>
+
+<title>Ratpacked: Change Server Port With Environment Variable</title>
+
+<script language="javascript" src="scripts/shCore.js"></script> 
+<script language="javascript" src="scripts/shLegacy.js"></script> 
+<script language="javascript" src="scripts/shBrushJava.js"></script> 
+<script language="javascript" src="scripts/shBrushXml.js"></script> 
+<script language="javascript" src="scripts/shBrushJScript.js"></script> 
+<script language="javascript" src="scripts/shBrushGroovy.js"></script> 
+<script language="javascript" src="scripts/shBrushPlain.js"></script> 
+<script language="javascript" src="scripts/shBrushBash.js"></script> 
+ 
+<link href="styles/reset.css" rel="stylesheet" type="text/css" />
+<link href="styles/shCore.css" rel="stylesheet" type="text/css" />
+<link type="text/css" rel="stylesheet" href="styles/shThemeRDark.css"/>
+<link href="styles/blog.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+
+<a href="index.html">Back to index</a>
+
+<h3 class="post-title">Ratpacked: Change Server Port With Environment Variable</h3>
+
+<div class="post">
+<p>When we define a Ratpack application we can set a server port in the server configuration code. When we do not define the port number in our code and use the default server configuration we can also set the server port with the environment variables <code>PORT</code> or <code>RATPACK_PORT</code>.</p><p>In the following example we use Gradle as build tool to run our Ratpack application. Gradle will pass on environment variables to the <code>run</code> task. We use the environment variable <code>RATPACK_PORT</code> to change the port to <code>9000</code>:</p><pre class="brush:plain;light:true">$ RATPACK_PORT gradle run
+Starting server...
+Building registry...
+Ratpack started (development) for http://localhost:9000
+</pre><p>Alternatively we can define the port number in our configuration, but also add an option to support environment variables to set or override configuration properties. This support is simply added by invoking the <code>env</code> method on the <code>ConfigDataBuilder</code> interface. With this method Ratpack looks for environment variables that start with <code>RATPACK_</code>. The rest of the environment variable is then parsed and transformed to a configuration property. A double underscore is used as separator between sections, a single underscore is used as boundary for camel case fields. For example the environment variable <code>RATPACK_SERVER__PORT</code> transforms to <code>server.port</code>.</p><pre class="brush:groovy">import static ratpack.groovy.Groovy.ratpack
+
+ratpack {
+    serverConfig {
+        // Instruct Ratpack to look for
+        // environment variables that
+        // start with RATPACK_ as
+        // configuration properties.
+        env()
+    }
+}
+</pre><p>Let's run our application and use the environment variable <code>RATPACK_SERVER__PORT</code> to change the port number:</p><pre class="brush:plain;light:true">$ RATPACK_SERVER__PORT=9000 gradle run
+Starting server...
+Building registry...
+Ratpack started (development) for http://localhost:9000
+</pre><p>We can alter the default prefix <code>RATPACK</code> for environment variables. We still use the method <code>env</code>, but this time we specify an argument as the prefix for the environment variables. In the following code we see how to use the prefix <code>COCKTAILS_</code> for environment variables:</p><pre class="brush:java;">package learning.ratpack;
+
+import ratpack.server.RatpackServer;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        RatpackServer.start(server ->
+            server
+                .serverConfig(serverConfig ->
+                    serverConfig
+                        // Define prefix for environment
+                        // variables that Ratpack uses.
+                        .env("COCKTAILS_")));
+    }
+}
+</pre><p>Let's run our application and use the environment variable <code>COCKTAILS_SERVER__PORT</code> to change the port number:</p><pre class="brush:plain;light:true">$ COCKTAILS_SERVER__PORT=9000 gradle run
+Starting server...
+Building registry...
+Ratpack started (development) for http://localhost:9000
+</pre><p>Written with Ratpack 1.0.0.</p
+</div>
+
+<script language="javascript"> 
+SyntaxHighlighter.config.bloggerMode = true;
+SyntaxHighlighter.config.clipboardSwf = 'scripts/clipboard.swf';
+SyntaxHighlighter.defaults['first-line'] = 0;
+SyntaxHighlighter.defaults['auto-links'] = false;
+SyntaxHighlighter.all();
+dp.SyntaxHighlighter.HighlightAll('code');
+</script>
+
+</body>
+</html>

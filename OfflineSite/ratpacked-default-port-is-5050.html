@@ -1,0 +1,80 @@
+<html>
+<head>
+
+<title>Ratpacked: Default Port Is 5050</title>
+
+<script language="javascript" src="scripts/shCore.js"></script> 
+<script language="javascript" src="scripts/shLegacy.js"></script> 
+<script language="javascript" src="scripts/shBrushJava.js"></script> 
+<script language="javascript" src="scripts/shBrushXml.js"></script> 
+<script language="javascript" src="scripts/shBrushJScript.js"></script> 
+<script language="javascript" src="scripts/shBrushGroovy.js"></script> 
+<script language="javascript" src="scripts/shBrushPlain.js"></script> 
+<script language="javascript" src="scripts/shBrushBash.js"></script> 
+ 
+<link href="styles/reset.css" rel="stylesheet" type="text/css" />
+<link href="styles/shCore.css" rel="stylesheet" type="text/css" />
+<link type="text/css" rel="stylesheet" href="styles/shThemeRDark.css"/>
+<link href="styles/blog.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+
+<a href="index.html">Back to index</a>
+
+<h3 class="post-title">Ratpacked: Default Port Is 5050</h3>
+
+<div class="post">
+<p>When we use all the defaults for a Ratpack application the default port that is used for listening to incoming requests is 5050. This is something to remember, because we don't see it when we start the application. If we want to show it, for example in the console, we must add a SLF4J Logging API implementation. Ratpack uses SLF4J API for logging and the port number and address that is used for listening to incoming requests are logged at INFO level. We must add a runtime dependency to our project with a SLF4J API implementation. We provide the necessary logging configuration if needed and then when we start our Ratpack application we can see the port number that is used.</p><p>In the following example we use the Logback library as a SLF4J API implementation. We add a runtime dependency <code>ch.qos.logback:logback-classic:1.1.3</code> to our Gradle build file. If we would use another build tool, we can still use the same dependency. And also we add a simple Logback configuration file in the <code>src/main/resources</code> directory.</p><pre class="brush:groovy">// File: build.gradle
+plugins {
+    id 'io.ratpack.ratpack-java' version '1.0.0'
+}
+
+mainClassName = 'com.mrhaki.ratpack.Main'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    // Here we add the Logback classic
+    // dependency, so we can configure the
+    // logging in the Ratpack application.
+    runtime 'ch.qos.logback:logback-classic:1.1.3'
+}
+</pre><p>We create a Logback XML configuration file in <code>src/main/resources</code>:</p><pre class="brush:xml;">&lt;!-- File: src/main/resources/logback.xml --&gt;
+&lt;configuration&gt;
+
+    &lt;appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender"&gt;
+        &lt;encoder&gt;
+            &lt;pattern&gt;%msg%n&lt;/pattern&gt;
+        &lt;/encoder&gt;
+    &lt;/appender&gt;
+
+    &lt;!-- Log all INFO level messages from RatpackServer --%gt;
+    &lt;logger name="ratpack.server.RatpackServer" level="INFO"/&gt;
+
+    &lt;root level="ERROR"&gt;
+        &lt;appender-ref ref="STDOUT"/&gt;
+    &lt;/root&gt;
+
+&lt;/configuration&gt;
+</pre><p>When we start the application with Gradle we can see in our console the logging messages from the <code>RatpackServer</code>. The last line shows the port number of our running Ratpack application:</p><pre class="brush:plain;light:true">$ gradle -q run
+Starting server...
+Building registry...
+Ratpack started (development) for http://localhost:5050
+
+</pre><p>Written with Ratpack 1.0.0.</p
+</div>
+
+<script language="javascript"> 
+SyntaxHighlighter.config.bloggerMode = true;
+SyntaxHighlighter.config.clipboardSwf = 'scripts/clipboard.swf';
+SyntaxHighlighter.defaults['first-line'] = 0;
+SyntaxHighlighter.defaults['auto-links'] = false;
+SyntaxHighlighter.all();
+dp.SyntaxHighlighter.HighlightAll('code');
+</script>
+
+</body>
+</html>

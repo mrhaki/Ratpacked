@@ -1,0 +1,50 @@
+<html>
+<head>
+
+<title>Ratpacked: Start Ratpack With a Random Port Number</title>
+
+<script language="javascript" src="scripts/shCore.js"></script> 
+<script language="javascript" src="scripts/shLegacy.js"></script> 
+<script language="javascript" src="scripts/shBrushJava.js"></script> 
+<script language="javascript" src="scripts/shBrushXml.js"></script> 
+<script language="javascript" src="scripts/shBrushJScript.js"></script> 
+<script language="javascript" src="scripts/shBrushGroovy.js"></script> 
+<script language="javascript" src="scripts/shBrushPlain.js"></script> 
+<script language="javascript" src="scripts/shBrushBash.js"></script> 
+ 
+<link href="styles/reset.css" rel="stylesheet" type="text/css" />
+<link href="styles/shCore.css" rel="stylesheet" type="text/css" />
+<link type="text/css" rel="stylesheet" href="styles/shThemeRDark.css"/>
+<link href="styles/blog.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+
+<a href="index.html">Back to index</a>
+
+<h3 class="post-title">Ratpacked: Start Ratpack With a Random Port Number</h3>
+
+<div class="post">
+<p>To start our Ratpack application with a random port number we must use the value <code>0</code> as port number. The value <code>0</code> tells Ratpack to use a random port number (in a safe port range).</p><p>In the following example Ratpack application we configure the server port to be random:</p><pre class="brush:groovy">import static ratpack.groovy.Groovy.ratpack
+
+ratpack {
+    serverConfig {
+        // Tell Ratpack to use a 
+        // random port number.
+        port 0
+    }
+}
+</pre><p>Written with Ratpack 1.0.0.</p
+</div>
+
+<script language="javascript"> 
+SyntaxHighlighter.config.bloggerMode = true;
+SyntaxHighlighter.config.clipboardSwf = 'scripts/clipboard.swf';
+SyntaxHighlighter.defaults['first-line'] = 0;
+SyntaxHighlighter.defaults['auto-links'] = false;
+SyntaxHighlighter.all();
+dp.SyntaxHighlighter.HighlightAll('code');
+</script>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!-- File: src/main/resources/log4j2.xml --&gt;
+&lt;Configuration status="WARN"&gt;
+    &lt;Appenders&gt;
+        &lt;Console name="STDOUT" target="SYSTEM_OUT"&gt;
+            &lt;PatternLayout pattern="%m%n"/&gt;
+        &lt;/Console&gt;
+    &lt;/Appenders&gt;
+    &lt;Loggers&gt;
+        &lt;AsyncLogger name="ratpack.server.RatpackServer" level="DEBUG" /&gt;
+        &lt;AsyncRoot level="ERROR"&gt;
+            &lt;AppenderRef ref="STDOUT"/&gt;
+        &lt;/AsyncRoot&gt;
+    &lt;/Loggers&gt;
+&lt;/Configuration&gt;
