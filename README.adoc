@@ -1,0 +1,4 @@
+= Ratpacked
+
+Blog posts about Ratpack from the Ratpacked series on 
+http://mrhaki.blogspot.com/.
